@@ -30,6 +30,9 @@
     <ClCompile Include="runner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gameGUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartMenu.hpp">
@@ -50,5 +53,13 @@
     <ClInclude Include="MEDIA_operator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gameGUI.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

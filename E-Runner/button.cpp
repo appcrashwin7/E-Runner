@@ -5,6 +5,16 @@ const sf::Text button::getText()
 	return buttText;
 }
 
+sf::Vector2i button::getInterBoxSize()
+{
+	return this->InteractionBoxSize;
+}
+
+sf::Vector2i button::getInterBoxPos()
+{
+	return this->InteractionBoxPosition;
+}
+
 bool button::isClick(sf::Vector2i  mousePos,bool isClicked)
 {
 	sf::Vector2i BoxPos = this->InteractionBoxPosition;

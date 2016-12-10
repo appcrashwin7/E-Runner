@@ -13,6 +13,8 @@ protected:
 	sf::Vector2i InteractionBoxSize;
 public:
 	const sf::Text getText();
+	sf::Vector2i getInterBoxSize();
+	sf::Vector2i getInterBoxPos();
 
 	bool isClick(sf::Vector2i mousePos,bool isClicked);
 

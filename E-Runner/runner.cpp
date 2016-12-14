@@ -1,7 +1,10 @@
 #include "runner.hpp"
 
 runner::runner()
-{}
+{
+	runnerBody.setSize(sf::Vector2f(100, 100));
+	runnerBody.setFillColor(sf::Color::Blue);
+}
 
 runner::~runner()
 {}
@@ -16,6 +19,11 @@ void runner::create(sf::Texture * text, sf::Vector2f pos)
 void runner::setTexture(sf::Texture * texture)
 {
 	runnerBody.setTexture(texture);
+}
+
+void runner::setPosition(sf::Vector2f newPos)
+{
+	this->runnerBody.setPosition(newPos);
 }
 
 sf::Vector2f runner::getPosition()
@@ -40,18 +48,26 @@ void runner::move(move_type var,float speed_factor)
 	switch (var)
 	{
 	case up:
-		added_vector.y = -20 * speed_factor;
+		added_vector.y = -10.0f * speed_factor;
 		break;
 	case up_and_left:
-		added_vector.y = -10 * speed_factor;
-		added_vector.x = -10;
+		added_vector.y = -10.0f * speed_factor;
+		added_vector.x = -10.0f;
 		break;
 	case up_and_right:
-		added_vector.y = -10 * speed_factor;
-		added_vector.x = 10;
+		added_vector.y = -10.0f * speed_factor;
+		added_vector.x = 10.0f;
+		break;
+	case left:
+		added_vector.y = -10.0f * speed_factor;
+		added_vector.x = -10.0f;
+		break;
+	case right:
+		added_vector.y = -10.0f * speed_factor;
+		added_vector.x = 10.0f;
 		break;
 	default:
-		added_vector.y = -10 * speed_factor;
+		added_vector.y = -5.0f * speed_factor;
 		break;
 	}
 	sf::Vector2f newPosition = runnerBody.getPosition() + added_vector;

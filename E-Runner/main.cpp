@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "StartMenu.hpp"
+#include "GameEngine.hpp"
 
 int main()
 {
 	sf::RenderWindow Window;
-	Window.create(sf::VideoMode(1024, 968, 32), "E-Runner", sf::Style::Default);
-	Window.setFramerateLimit(60);
+	Window.create(sf::VideoMode(1024, 768, 32), "E-Runner", sf::Style::Default);
+	Window.setFramerateLimit(30);
 	StartMenu menuStart;
 	menuStart.create(Window);
 
@@ -29,8 +30,13 @@ int main()
 			Window.close();
 			break;
 		case 1:
-			//GameEngine.start();
+		{
+			GameEngine *game = new GameEngine();
+			game->configureEngine(Window, sf::Vector2u(1024, 768), 30);
+			game->Start();
+			delete game;
 			break;
+		}
 		case 2:
 			//BestRuns.menu_Start();
 			break;

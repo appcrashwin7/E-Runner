@@ -13,6 +13,7 @@ public:
 
 	void create(sf::Texture *text,sf::Vector2f pos);
 	void setTexture(sf::Texture *texture);
+	void setPosition(sf::Vector2f newPos);
 	sf::Vector2f getPosition();
 	sf::Vector2f getSize();
 	sf::RectangleShape getShape();

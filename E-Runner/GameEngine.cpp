@@ -1,10 +1,11 @@
 #include "GameEngine.hpp"
+#include "move_type.h"
 #include <iostream>
 
 bool isUpKeyPressed()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)
-		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) == true
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up) == true)
 	{
 		return true;
 	}
@@ -12,8 +13,8 @@ bool isUpKeyPressed()
 }
 bool isLeftKeyPressed()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)
-		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) == true
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Left) == true)
 	{
 		return true;
 	}
@@ -21,8 +22,8 @@ bool isLeftKeyPressed()
 }
 bool isRightKeyPressed()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)
-		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) == true
+		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Right) == true)
 	{
 		return true;
 	}
@@ -31,9 +32,14 @@ bool isRightKeyPressed()
 
 void GameEngine::configureEngine(sf::RenderWindow & twindow, sf::Vector2u windowSize, unsigned int framerate)
 {
+	gameFont.loadFromFile("arial.ttf");
+
 	targetWindow = &twindow;
 	targetWindow->setSize(windowSize);
 	targetWindow->setFramerateLimit(framerate);
+	engine_is_paused = false;
+	camera.setSize((sf::Vector2f)windowSize);
+	HUD.create(targetWindow, &gameFont);
 
 	if(checkEngine() != false)
 		this->engine_is_prepared = true;
@@ -60,6 +66,26 @@ bool GameEngine::checkEngine()
 	return true;
 }
 
+bool GameEngine::colisionManager()
+{
+	sf::Vector2f playerPos = this->player.getPosition();
+	sf::Vector2f playerSize = this->player.getSize();
+
+	if (playerPos.x <= -200.0f)
+	{
+		playerPos.x = -201.0f;
+		this->player.setPosition(playerPos);
+	}
+	else if (playerPos.x + playerSize.x >= 600.0f)
+	{
+		float mov = playerPos.x + playerSize.x - 600.0f;
+		playerPos.x = playerPos.x - mov;
+		this->player.setPosition(playerPos);
+	}
+
+	return false;
+}
+
 void GameEngine::Start()
 {
 	if(engine_is_prepared == true)
@@ -77,14 +103,122 @@ GameEngine::~GameEngine()
 
 int GameEngine::gameLoop()
 {
-	return 0;
+	float speed = 0.5f;
+	while (true)
+	{
+		//events
+		if (this->engine_is_paused == true)
+		{
+			int event = this->EventManager();
+			switch (event)
+			{
+			case 1:
+				targetWindow->close();
+				return 0;
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			}
+			int hud_event = HUD.getEvent(targetWindow);
+		}
+		else
+		{
+			int event = this->EventManager();
+			switch (event)
+			{
+			case 1:
+				targetWindow->close();
+				return 0;
+				break;
+			case 2:
+				break;
+			case 3:
+				this->engine_is_paused = true;
+				break;
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
+		{
+			if (engine_is_paused == true)
+			{
+				engine_is_paused = false;
+			}
+			else
+			{
+				engine_is_paused = true;
+			}
+		}
+
+		if (this->engine_is_paused == false)
+		{
+			int keyEvents = this->KeyboardEventManager();
+			if (keyEvents == 5)
+			{
+				this->player.move(move_type::up_and_left, speed);
+			}
+			else if (keyEvents == 4)
+			{
+				this->player.move(move_type::up_and_right, speed);
+			}
+			else if (keyEvents == 3)
+			{
+				this->player.move(move_type::up, speed);
+			}
+			else if (keyEvents == 2)
+			{
+				this->player.move(move_type::left, speed);
+			}
+			else if (keyEvents == 1)
+			{
+				this->player.move(move_type::right, speed);
+			}
+			else
+			{
+				this->player.move(move_type::other, speed);
+			}
+
+			colisionManager();
+
+			sf::Vector2f test = this->player.getPosition();
+			std::cout << test.x << " " << test.y << "\n";
+
+			setCameraPos();
+			targetWindow->setView(camera);
+			HUD.setNewGUIElementsPos(targetWindow);
+		}
+		
+
+		//graphics
+		targetWindow->clear();
+		this->drawGameArea();
+		if (engine_is_paused == true)
+			this->HUD.drawGameGUI(targetWindow, true);
+		else
+			this->HUD.drawGameGUI(targetWindow);
+
+		targetWindow->display();
+		
+		speed += 0.1f;
+	}
 }
 
 void GameEngine::drawGameArea()
 {
-	targetWindow->clear();
 	targetWindow->draw(player.getShape());
-	targetWindow->display();
+}
+
+void GameEngine::setCameraPos()
+{
+	sf::Vector2u windowSize = this->targetWindow->getSize();
+	sf::Vector2f playerPos = this->player.getPosition();
+
+	sf::Vector2f newCameraPos = playerPos;
+	float sizeY = (float)windowSize.y / 4;
+	newCameraPos.y -= sizeY;
+	newCameraPos.x = 200;
+	camera.setCenter(newCameraPos);
 }
 
 int GameEngine::EventManager()

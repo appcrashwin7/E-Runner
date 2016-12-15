@@ -131,6 +131,7 @@
     <ClInclude Include="gameGUI.hpp" />
     <ClInclude Include="MEDIA_operator.hpp" />
     <ClInclude Include="move_type.h" />
+    <ClInclude Include="obstacle.hpp" />
     <ClInclude Include="runner.hpp" />
     <ClInclude Include="StartMenu.hpp" />
   </ItemGroup>

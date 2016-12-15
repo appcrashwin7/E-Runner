@@ -41,7 +41,7 @@ int main()
 			//BestRuns.menu_Start();
 			break;
 		case 3:
-			Window.close();
+			return 1;
 			break;
 		}
 

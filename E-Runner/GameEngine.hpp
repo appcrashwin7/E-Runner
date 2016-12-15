@@ -16,7 +16,7 @@ class GameEngine
 	sf::Sprite gameBackground;
 	gameGUI HUD;
 
-	//std::vector <object> objects;
+	//std::vector <obstacle> obstacle;
 	//std::vector <money> moneys;
 
 	bool engine_is_prepared;

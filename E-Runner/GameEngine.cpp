@@ -113,7 +113,6 @@ int GameEngine::gameLoop()
 			switch (event)
 			{
 			case 1:
-				targetWindow->close();
 				return 0;
 				break;
 			case 2:
@@ -121,7 +120,6 @@ int GameEngine::gameLoop()
 			case 3:
 				break;
 			}
-			int hud_event = HUD.getEvent(targetWindow);
 		}
 		else
 		{
@@ -129,7 +127,6 @@ int GameEngine::gameLoop()
 			switch (event)
 			{
 			case 1:
-				targetWindow->close();
 				return 0;
 				break;
 			case 2:
@@ -150,7 +147,20 @@ int GameEngine::gameLoop()
 				engine_is_paused = true;
 			}
 		}
-
+		if (engine_is_paused == true)
+		{
+			switch (HUD.getEvent(targetWindow))
+			{
+			case 1:
+				engine_is_paused = false;
+				break;
+			case 2:
+				targetWindow->close();
+				break;
+			default:
+				break;
+			}
+		}
 		if (this->engine_is_paused == false)
 		{
 			int keyEvents = this->KeyboardEventManager();
@@ -187,6 +197,8 @@ int GameEngine::gameLoop()
 			setCameraPos();
 			targetWindow->setView(camera);
 			HUD.setNewGUIElementsPos(targetWindow);
+
+			speed += 0.001f;
 		}
 		
 
@@ -199,8 +211,6 @@ int GameEngine::gameLoop()
 			this->HUD.drawGameGUI(targetWindow);
 
 		targetWindow->display();
-		
-		speed += 0.1f;
 	}
 }
 

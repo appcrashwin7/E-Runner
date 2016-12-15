@@ -11,23 +11,23 @@ int main()
 	StartMenu menuStart;
 	menuStart.create(Window);
 
-	while (Window.isOpen())
+	while (true)
 	{
 		sf::Event event;
 
 		while (Window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				Window.close();
+				return 1;
 		}
 
 		switch (menuStart.MenuEvents())
 		{
 		case 10:
-			Window.close();
+			return 1;
 			break;
 		case 5:
-			Window.close();
+			return 1;
 			break;
 		case 1:
 		{

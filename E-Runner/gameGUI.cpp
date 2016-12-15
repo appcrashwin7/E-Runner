@@ -24,7 +24,7 @@ void gameGUI::create(sf::RenderWindow *targetWindow,sf::Font *font)
 	this->continueb.create(targetWindow->mapPixelToCoords(sf::Vector2i(400, 400)), sf::Vector2i(400, 400),
 		sf::Vector2i(100, 50), "Continue", *font);
 	this->exit.create(targetWindow->mapPixelToCoords(sf::Vector2i(400, 500)), sf::Vector2i(400, 500),
-		sf::Vector2i(100, 50), "Continue", *font);
+		sf::Vector2i(100, 50), "Exit", *font);
 }
 
 void gameGUI::setScore(int newScore)
@@ -44,12 +44,12 @@ void gameGUI::setNewGUIElementsPos(sf::RenderWindow * window)
 
 unsigned int gameGUI::getEvent(sf::RenderWindow *targetWindow)
 {
-	if (continueb.isClick(sf::Mouse::getPosition(), 
+	if (continueb.isClick(sf::Mouse::getPosition(*targetWindow),
 		sf::Mouse::isButtonPressed(sf::Mouse::Left)) == true)
 	{
 		return 1;
 	}
-	else if(exit.isClick(sf::Mouse::getPosition(),
+	else if(exit.isClick(sf::Mouse::getPosition(*targetWindow),
 		sf::Mouse::isButtonPressed(sf::Mouse::Left)) == true)
 	{
 		return 2;

@@ -93,20 +93,19 @@ void GameEngine::dataCleaner()
 	sf::Vector2f obsPos;
 	sf::Vector2f playerPos = this->player.getPosition();
 
-	std::vector<size_t> NumberOfobstaclesToDump;
+	size_t lastObstacle = 0;
 
 	for (size_t i = 0; i < obstacles.size(); i++)
 	{
 		obsPos = obstacles[i].getPosition();
 		if (obsPos.y > playerPos.y + 200)
 		{
-			NumberOfobstaclesToDump.push_back(i);
+			lastObstacle = i;
 		}
 	}
-	for (size_t j = 0; j < NumberOfobstaclesToDump.size(); j++)
-	{
-		obstacles.erase(obstacles.begin()+NumberOfobstaclesToDump[j]);
-	}
+		obstacles.erase(obstacles.begin(),obstacles.begin()+lastObstacle);
+
+		//TODO :add a eraser to moneys vector
 }
 
 void GameEngine::Start()
@@ -266,6 +265,8 @@ void GameEngine::obstacleGenerator()
 {
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 500;
+	obstacles.push_back(obstacle::obstacle(pos));
+	pos.x += 100;
 	obstacles.push_back(obstacle::obstacle(pos));
 }
 

@@ -20,7 +20,7 @@ sf::Vector2f obstacle::getPosition()
 	return obstacleShape.getPosition();
 }
 
-sf::RectangleShape * obstacle::getObstacleShape()
+const sf::RectangleShape * obstacle::getObstacleShape()
 {
 	return  &obstacleShape;
 }

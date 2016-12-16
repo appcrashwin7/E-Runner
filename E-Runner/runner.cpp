@@ -48,14 +48,14 @@ void runner::move(move_type var,float speed_factor)
 	switch (var)
 	{
 	case up:
-		added_vector.y = -20.0f * speed_factor;
+		added_vector.y = -10.0f * speed_factor;
 		break;
 	case up_and_left:
-		added_vector.y = -15.0f * speed_factor;
+		added_vector.y = -10.0f * speed_factor;
 		added_vector.x = -10.0f;
 		break;
 	case up_and_right:
-		added_vector.y = -15.0f * speed_factor;
+		added_vector.y = -10.0f * speed_factor;
 		added_vector.x = 10.0f;
 		break;
 	case left:
@@ -67,7 +67,7 @@ void runner::move(move_type var,float speed_factor)
 		added_vector.x = 10.0f;
 		break;
 	default:
-		added_vector.y = -10.0f * speed_factor;
+		added_vector.y = -5.0f * speed_factor;
 		break;
 	}
 	sf::Vector2f newPosition = runnerBody.getPosition() + added_vector;

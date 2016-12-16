@@ -264,7 +264,7 @@ void GameEngine::setCameraPos()
 void GameEngine::obstacleGenerator()
 {
 	sf::Vector2f pos = player.getPosition();
-	pos.y -= 1000;
+	pos.y -= 500;
 	obstacles.push_back(obstacle::obstacle(pos));
 	pos.x += 100;
 	obstacles.push_back(obstacle::obstacle(pos));

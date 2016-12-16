@@ -13,5 +13,5 @@ public:
 	obstacle(sf::Vector2f position);
 
 	sf::Vector2f getPosition();
-	const  sf::RectangleShape *getObstacleShape();
+	sf::RectangleShape *getObstacleShape();
 };

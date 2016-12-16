@@ -6,6 +6,7 @@
 #include "runner.hpp"
 #include "MEDIA_operator.hpp"
 #include "gameGUI.hpp"
+#include "obstacle.hpp"
 
 class GameEngine
 {
@@ -16,7 +17,7 @@ class GameEngine
 	sf::Sprite gameBackground;
 	gameGUI HUD;
 
-	//std::vector <obstacle> obstacle;
+	std::vector <obstacle> obstacles;
 	//std::vector <money> moneys;
 
 	bool engine_is_prepared;
@@ -36,6 +37,8 @@ private:
 	int gameLoop();
 	void drawGameArea();
 	void setCameraPos();
+	void obstacleGenerator();
+	void obstacleDraw();
 
 	int EventManager();
 	int KeyboardEventManager();
@@ -43,5 +46,5 @@ private:
 	bool checkEngine();
 
 	bool colisionManager();
-	//void dataCleaner();
+	void dataCleaner();
 };

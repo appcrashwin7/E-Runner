@@ -83,7 +83,30 @@ bool GameEngine::colisionManager()
 		this->player.setPosition(playerPos);
 	}
 
+	// TODO : add colision with obstacles
+
 	return false;
+}
+
+void GameEngine::dataCleaner()
+{
+	sf::Vector2f obsPos;
+	sf::Vector2f playerPos = this->player.getPosition();
+
+	std::vector<size_t> NumberOfobstaclesToDump;
+
+	for (size_t i = 0; i < obstacles.size(); i++)
+	{
+		obsPos = obstacles[i].getPosition();
+		if (obsPos.y > playerPos.y + 200)
+		{
+			NumberOfobstaclesToDump.push_back(i);
+		}
+	}
+	for (size_t j = 0; j < NumberOfobstaclesToDump.size(); j++)
+	{
+		obstacles.erase(obstacles.begin()+NumberOfobstaclesToDump[j]);
+	}
 }
 
 void GameEngine::Start()
@@ -99,11 +122,13 @@ GameEngine::GameEngine()
 GameEngine::~GameEngine()
 {
 	targetWindow = nullptr;
+	obstacles.clear();
 }
 
 int GameEngine::gameLoop()
 {
 	float speed = 0.5f;
+	int Numloop = 1;
 	while (true)
 	{
 		//events
@@ -188,6 +213,10 @@ int GameEngine::gameLoop()
 			{
 				this->player.move(move_type::other, speed);
 			}
+			if (Numloop % 200 == 0)
+			{
+				this->obstacleGenerator();
+			}
 
 			colisionManager();
 
@@ -199,8 +228,10 @@ int GameEngine::gameLoop()
 			HUD.setNewGUIElementsPos(targetWindow);
 
 			speed += 0.001f;
+			Numloop++;
 		}
 		
+		dataCleaner();
 
 		//graphics
 		targetWindow->clear();
@@ -209,7 +240,7 @@ int GameEngine::gameLoop()
 			this->HUD.drawGameGUI(targetWindow, true);
 		else
 			this->HUD.drawGameGUI(targetWindow);
-
+		obstacleDraw();
 		targetWindow->display();
 	}
 }
@@ -229,6 +260,21 @@ void GameEngine::setCameraPos()
 	newCameraPos.y -= sizeY;
 	newCameraPos.x = 200;
 	camera.setCenter(newCameraPos);
+}
+
+void GameEngine::obstacleGenerator()
+{
+	sf::Vector2f pos = player.getPosition();
+	pos.y -= 500;
+	obstacles.push_back(obstacle::obstacle(pos));
+}
+
+void GameEngine::obstacleDraw()
+{
+	for (size_t i = 0; i < obstacles.size(); i++)
+	{
+		targetWindow->draw(*obstacles[i].getObstacleShape());
+	}
 }
 
 int GameEngine::EventManager()

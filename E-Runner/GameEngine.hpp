@@ -2,23 +2,28 @@
 #include <SFML/Graphics.hpp>
 
 #include <vector>
+#include <random>
 
 #include "runner.hpp"
 #include "MEDIA_operator.hpp"
 #include "gameGUI.hpp"
 #include "obstacle.hpp"
+#include "money.hpp"
 
 class GameEngine
 {
+	std::default_random_engine rand_engine;
+
 	sf::Font gameFont;
+	sf::Sprite gameBackground;
+
 	sf::RenderWindow *targetWindow;
 	sf::View camera;
-	runner player;
-	sf::Sprite gameBackground;
 	gameGUI HUD;
 
+	runner player;
 	std::vector <obstacle> obstacles;
-	//std::vector <money> moneys;
+	std::vector <money> moneys;
 
 	bool engine_is_prepared;
 	bool engine_is_paused;
@@ -34,17 +39,17 @@ public:
 	GameEngine();
 	~GameEngine();
 private:
-	int gameLoop();
-	void drawGameArea();
+	bool checkEngine();
+	int gameLoop();	
 	void setCameraPos();
-	void obstacleGenerator();
-	void obstacleDraw();
+
+	void objectDraw();
+	void drawGameArea();
 
 	int EventManager();
-	int KeyboardEventManager();
-
-	bool checkEngine();
-
+	void KeyboardEventManager(float speedMod);
 	bool colisionManager();
+
+	void objectGenerator();
 	void dataCleaner();
 };

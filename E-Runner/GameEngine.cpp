@@ -90,22 +90,31 @@ bool GameEngine::colisionManager()
 
 void GameEngine::dataCleaner()
 {
-	sf::Vector2f obsPos;
+	sf::Vector2f objPos;
 	sf::Vector2f playerPos = this->player.getPosition();
 
-	size_t lastObstacle = 0;
+	size_t lastObj = 0;
 
 	for (size_t i = 0; i < obstacles.size(); i++)
 	{
-		obsPos = obstacles[i].getPosition();
-		if (obsPos.y > playerPos.y + 200)
+		objPos = obstacles[i].getPosition();
+		if (objPos.y > playerPos.y + 200)
 		{
-			lastObstacle = i;
+			lastObj = i;
 		}
 	}
-		obstacles.erase(obstacles.begin(),obstacles.begin()+lastObstacle);
+		obstacles.erase(obstacles.begin(),obstacles.begin()+lastObj);
 
-		//TODO :add a eraser to moneys vector
+		lastObj = 0;
+		for (size_t i = 0; i < moneys.size(); i++)
+		{
+			objPos = moneys[i].getPosition();
+			if (objPos.y > playerPos.y + 200)
+			{
+				lastObj = i;
+			}
+		}
+		moneys.erase(moneys.begin(), moneys.begin() + lastObj);
 }
 
 void GameEngine::Start()
@@ -116,12 +125,15 @@ void GameEngine::Start()
 }
 
 GameEngine::GameEngine()
-{}
+{
+	rand_engine.seed(unsigned int(time(NULL)));
+}
 
 GameEngine::~GameEngine()
 {
 	targetWindow = nullptr;
 	obstacles.clear();
+	moneys.clear();
 }
 
 int GameEngine::gameLoop()
@@ -185,36 +197,12 @@ int GameEngine::gameLoop()
 				break;
 			}
 		}
+		KeyboardEventManager(speed);
 		if (this->engine_is_paused == false)
 		{
-			int keyEvents = this->KeyboardEventManager();
-			if (keyEvents == 5)
-			{
-				this->player.move(move_type::up_and_left, speed);
-			}
-			else if (keyEvents == 4)
-			{
-				this->player.move(move_type::up_and_right, speed);
-			}
-			else if (keyEvents == 3)
-			{
-				this->player.move(move_type::up, speed);
-			}
-			else if (keyEvents == 2)
-			{
-				this->player.move(move_type::left, speed);
-			}
-			else if (keyEvents == 1)
-			{
-				this->player.move(move_type::right, speed);
-			}
-			else
-			{
-				this->player.move(move_type::other, speed);
-			}
 			if (Numloop % 200 == 0)
 			{
-				this->obstacleGenerator();
+				this->objectGenerator();
 			}
 
 			colisionManager();
@@ -239,7 +227,7 @@ int GameEngine::gameLoop()
 			this->HUD.drawGameGUI(targetWindow, true);
 		else
 			this->HUD.drawGameGUI(targetWindow);
-		obstacleDraw();
+		objectDraw();
 		targetWindow->display();
 	}
 }
@@ -261,17 +249,27 @@ void GameEngine::setCameraPos()
 	camera.setCenter(newCameraPos);
 }
 
-void GameEngine::obstacleGenerator()
+void GameEngine::objectGenerator()
 {
+	std::uniform_int_distribution <int> distribution(-100,500);
+
+
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 1000;
+	pos.x = static_cast<float>(distribution(rand_engine));
 	obstacles.push_back(obstacle::obstacle(pos));
-	pos.x += 100;
+	pos.x = static_cast<float>(distribution(rand_engine));
 	obstacles.push_back(obstacle::obstacle(pos));
+	pos.x = static_cast<float>(distribution(rand_engine));
+	moneys.push_back(money::money(pos));
 }
 
-void GameEngine::obstacleDraw()
+void GameEngine::objectDraw()
 {
+	for (size_t i = 0; i < moneys.size(); i++)
+	{
+		targetWindow->draw(*moneys[i].getShape());
+	}
 	for (size_t i = 0; i < obstacles.size(); i++)
 	{
 		targetWindow->draw(*obstacles[i].getObstacleShape());
@@ -303,28 +301,33 @@ int GameEngine::EventManager()
 	return 0;
 }
 
-int GameEngine::KeyboardEventManager()
+void GameEngine::KeyboardEventManager(float speedMod)
 {
-	if (isLeftKeyPressed() && isUpKeyPressed() == true)
+	if (this->engine_is_paused == false)
 	{
-		return 5;
+		if (isLeftKeyPressed() && isUpKeyPressed() == true)
+		{
+			this->player.move(move_type::up_and_left, speedMod);
+		}
+		else if (isRightKeyPressed() && isUpKeyPressed() == true)
+		{
+			this->player.move(move_type::up_and_right, speedMod);
+		}
+		else if (isUpKeyPressed() == true)
+		{
+			this->player.move(move_type::up, speedMod);
+		}
+		else if (isLeftKeyPressed() == true)
+		{
+			this->player.move(move_type::left, speedMod);
+		}
+		else if (isRightKeyPressed() == true)
+		{
+			this->player.move(move_type::right, speedMod);
+		}
+		else
+		{
+			this->player.move(move_type::other, speedMod);
+		}
 	}
-	else if (isRightKeyPressed() && isUpKeyPressed() == true)
-	{
-		return 4;
-	}
-	else if (isUpKeyPressed() == true)
-	{
-		return 3;
-	}
-	else if (isLeftKeyPressed() == true)
-	{
-		return 2;
-	}
-	else if (isRightKeyPressed() == true)
-	{
-		return 1;
-	}
-
-	return 0;
 }

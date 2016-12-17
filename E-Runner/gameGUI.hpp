@@ -23,5 +23,5 @@ public:
 
 	unsigned int getEvent(sf::RenderWindow *targetWindow);
 	
-	void drawGameGUI(sf::RenderWindow *targetWindow,bool isgamePaused = false);
+	void drawGameGUI(sf::RenderWindow *targetWindow,bool isgamePaused);
 };

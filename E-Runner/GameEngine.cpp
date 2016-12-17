@@ -140,49 +140,10 @@ int GameEngine::gameLoop()
 {
 	float speed = 0.5f;
 	int Numloop = 1;
-	while (true)
+	while (targetWindow->isOpen())
 	{
-		//events
-		if (this->engine_is_paused == true)
-		{
-			int event = this->EventManager();
-			switch (event)
-			{
-			case 1:
-				return 0;
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			}
-		}
-		else
-		{
-			int event = this->EventManager();
-			switch (event)
-			{
-			case 1:
-				return 0;
-				break;
-			case 2:
-				break;
-			case 3:
-				this->engine_is_paused = true;
-				break;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
-		{
-			if (engine_is_paused == true)
-			{
-				engine_is_paused = false;
-			}
-			else
-			{
-				engine_is_paused = true;
-			}
-		}
+		this->EventManager();
+
 		if (engine_is_paused == true)
 		{
 			switch (HUD.getEvent(targetWindow))
@@ -200,7 +161,7 @@ int GameEngine::gameLoop()
 		KeyboardEventManager(speed);
 		if (this->engine_is_paused == false)
 		{
-			if (Numloop % 200 == 0)
+			if (Numloop % 100 == 0)
 			{
 				this->objectGenerator();
 			}
@@ -223,13 +184,11 @@ int GameEngine::gameLoop()
 		//graphics
 		targetWindow->clear();
 		this->drawGameArea();
-		if (engine_is_paused == true)
-			this->HUD.drawGameGUI(targetWindow, true);
-		else
-			this->HUD.drawGameGUI(targetWindow);
+			this->HUD.drawGameGUI(targetWindow,engine_is_paused);
 		objectDraw();
 		targetWindow->display();
 	}
+	return 0;
 }
 
 void GameEngine::drawGameArea()
@@ -285,19 +244,17 @@ int GameEngine::EventManager()
 	switch (windowEvent.type)
 	{
 	case sf::Event::Closed :
-		return 1;
-		break;
-	case sf::Event::GainedFocus :
-		return 2;
+		targetWindow->close();
 		break;
 	case sf::Event::LostFocus :
-		return 3;
+		if (engine_is_paused == false)
+		{
+			engine_is_paused = true;
+		}
 		break;
 	default:
-		return 0;
 		break;
 	}
-
 	return 0;
 }
 
@@ -305,6 +262,12 @@ void GameEngine::KeyboardEventManager(float speedMod)
 {
 	if (this->engine_is_paused == false)
 	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
+		{
+			engine_is_paused = true;
+			return;
+		}
+
 		if (isLeftKeyPressed() && isUpKeyPressed() == true)
 		{
 			this->player.move(move_type::up_and_left, speedMod);
@@ -328,6 +291,13 @@ void GameEngine::KeyboardEventManager(float speedMod)
 		else
 		{
 			this->player.move(move_type::other, speedMod);
+		}
+	}
+	else
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
+		{
+			engine_is_paused = false;
 		}
 	}
 }

@@ -82,8 +82,21 @@ bool GameEngine::colisionManager()
 		playerPos.x = playerPos.x - mov;
 		this->player.setPosition(playerPos);
 	}
+	sf::Vector2f objPos;
+	sf::Vector2f objSize;
+	for (size_t i = 0; i < obstacles.size(); i++)
+	{
+		objPos = obstacles[i].getPosition();
+		objSize = obstacles[i].getSize();
 
-	// TODO : add colision with obstacles
+		if (playerPos.x > objPos.x + objSize.x || playerPos.x + playerSize.x < objPos.x ||
+			playerPos.y > objPos.y + objSize.y || playerPos.y + playerSize.y < objPos.y)
+		{ }
+		else
+		{
+			return true;
+		}
+	}
 
 	return false;
 }
@@ -166,7 +179,12 @@ int GameEngine::gameLoop()
 				this->objectGenerator();
 			}
 
-			colisionManager();
+			bool game_over = colisionManager();
+			if (game_over == true)
+			{
+				std::cout << "You lose!" << std::endl;
+				return 1;
+			}
 
 			sf::Vector2f test = this->player.getPosition();
 			std::cout << test.x << " " << test.y << "\n";

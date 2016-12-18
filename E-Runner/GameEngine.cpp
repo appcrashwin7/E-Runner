@@ -160,6 +160,7 @@ GameEngine::GameEngine()
 {
 	rand_engine.seed(unsigned int(time(NULL)));
 	points = 0;
+	playerIsAlive = true;
 }
 
 GameEngine::~GameEngine()
@@ -203,7 +204,7 @@ int GameEngine::gameLoop()
 			if (game_over == true)
 			{
 				std::cout << "You lose!" << std::endl;
-				return 1;
+				playerIsAlive = false;
 			}
 
 			sf::Vector2f test = this->player.getPosition();
@@ -218,6 +219,26 @@ int GameEngine::gameLoop()
 		}
 		
 		dataCleaner();
+
+		if (playerIsAlive == false)
+		{
+			bool playerWantRestartGame = loseLoop();
+			if (playerWantRestartGame == true)
+			{
+				speed = 0.5f;
+				points = 0;
+				Numloop = 1;
+				player.setPosition(sf::Vector2f(0,0));
+
+				obstacles.clear();
+				moneys.clear();
+				playerIsAlive = true;
+			}
+			else
+			{
+				return 0;
+			}
+		}
 
 		//graphics
 		targetWindow->clear();
@@ -244,6 +265,32 @@ void GameEngine::setCameraPos()
 	newCameraPos.y -= sizeY;
 	newCameraPos.x = 200;
 	camera.setCenter(newCameraPos);
+}
+
+bool GameEngine::loseLoop()
+{
+	while (targetWindow->isOpen())
+	{
+		sf::Event events;
+		while (targetWindow->pollEvent(events))
+		{
+			switch (events.type)
+			{
+			case sf::Event::Closed :
+				targetWindow->close();
+			}
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) == true)
+		{
+			return true;
+		}
+
+		targetWindow->clear();
+		this->HUD.drawGUIWhenPlayerLose(targetWindow);
+		targetWindow->display();
+	}
+	return false;
 }
 
 void GameEngine::objectGenerator()

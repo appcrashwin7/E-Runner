@@ -21,6 +21,10 @@ void gameGUI::create(sf::RenderWindow *targetWindow,sf::Font *font)
 	this->score.setFont(*font);
 	this->score.setFillColor(sf::Color::Red);
 
+	this->youLose.setString("You Lose");
+	this->youLose.setFillColor(sf::Color(150, 100, 50));
+	this->youLose.setFont(*font);
+
 	this->continueb.create(targetWindow->mapPixelToCoords(sf::Vector2i(400, 400)), sf::Vector2i(400, 400),
 		sf::Vector2i(100, 50), "Continue", *font);
 	this->exit.create(targetWindow->mapPixelToCoords(sf::Vector2i(400, 500)), sf::Vector2i(400, 500),
@@ -38,6 +42,8 @@ void gameGUI::setNewGUIElementsPos(sf::RenderWindow * window)
 {
 	this->score.setPosition(window->mapPixelToCoords(sf::Vector2i(100, 100)));
 	this->information.setPosition(window->mapPixelToCoords(sf::Vector2i(400, 200)));
+	this->youLose.setPosition(window->mapPixelToCoords(sf::Vector2i(400, 50)));
+
 	this->continueb.setButtonPosition(window->mapPixelToCoords(sf::Vector2i(400, 400)));
 	this->exit.setButtonPosition(window->mapPixelToCoords(sf::Vector2i(400, 500)));
 }
@@ -69,4 +75,10 @@ void gameGUI::drawGameGUI(sf::RenderWindow *targetWindow, bool isgamePaused)
 	targetWindow->draw(this->information);
 	targetWindow->draw(this->continueb.getText());
 	targetWindow->draw(this->exit.getText());
+}
+
+void gameGUI::drawGUIWhenPlayerLose(sf::RenderWindow * targetWindow)
+{
+	targetWindow->draw(this->score);
+	targetWindow->draw(this->youLose);
 }

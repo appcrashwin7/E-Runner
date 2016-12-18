@@ -32,6 +32,7 @@ class GameEngine
 	MEDIA_operator media_container;
 
 	int points;
+	bool playerIsAlive;
 
 public:
 	void configureEngine(sf::RenderWindow &twindow, sf::Vector2u windowSize,
@@ -44,6 +45,7 @@ private:
 	bool checkEngine();
 	int gameLoop();	
 	void setCameraPos();
+	bool loseLoop();
 
 	void objectDraw();
 	void drawGameArea();

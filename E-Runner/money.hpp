@@ -12,5 +12,6 @@ public:
 	~money();
 
 	sf::Vector2f getPosition();
+	sf::Vector2f getSize();
 	sf::RectangleShape *getShape();
 };

@@ -20,6 +20,11 @@ sf::Vector2f money::getPosition()
 	return moneyShape.getPosition();
 }
 
+sf::Vector2f money::getSize()
+{
+	return moneyShape.getSize();
+}
+
 sf::RectangleShape * money::getShape()
 {
 	return &moneyShape;

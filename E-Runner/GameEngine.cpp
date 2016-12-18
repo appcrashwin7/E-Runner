@@ -98,6 +98,25 @@ bool GameEngine::colisionManager()
 		}
 	}
 
+	for (size_t j = 0; j < moneys.size(); j++)
+	{
+		objPos = moneys[j].getPosition();
+		objSize = moneys[j].getSize();
+
+		if (playerPos.x > objPos.x + objSize.x || playerPos.x + playerSize.x < objPos.x ||
+			playerPos.y > objPos.y + objSize.y || playerPos.y + playerSize.y < objPos.y)
+		{
+		}
+		else
+		{
+			points += 100;
+			moneys.erase(moneys.begin() + j);
+			this->HUD.setScore(points);
+			break;
+		}
+
+	}
+
 	return false;
 }
 
@@ -140,6 +159,7 @@ void GameEngine::Start()
 GameEngine::GameEngine()
 {
 	rand_engine.seed(unsigned int(time(NULL)));
+	points = 0;
 }
 
 GameEngine::~GameEngine()

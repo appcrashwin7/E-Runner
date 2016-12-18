@@ -31,6 +31,8 @@ class GameEngine
 	//IO_operator score_operator;
 	MEDIA_operator media_container;
 
+	int points;
+
 public:
 	void configureEngine(sf::RenderWindow &twindow, sf::Vector2u windowSize,
 		unsigned int framerate);

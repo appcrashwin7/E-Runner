@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "move_type.h"
+#include "move_type.hpp"
 
 class runner
 {

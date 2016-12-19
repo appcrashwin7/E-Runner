@@ -1,5 +1,5 @@
 #include "GameEngine.hpp"
-#include "move_type.h"
+#include "move_type.hpp"
 #include <iostream>
 
 bool isUpKeyPressed()
@@ -158,7 +158,7 @@ void GameEngine::Start()
 
 GameEngine::GameEngine()
 {
-	rand_engine.seed(unsigned int(time(NULL)));
+	rand_engine.seed(static_cast<unsigned int>(time(NULL)));
 	points = 0;
 	playerIsAlive = true;
 }
@@ -301,11 +301,11 @@ void GameEngine::objectGenerator()
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 1000;
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle::obstacle(pos));
+	obstacles.push_back(obstacle(pos));
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle::obstacle(pos));
+	obstacles.push_back(obstacle(pos));
 	pos.x = static_cast<float>(distribution(rand_engine));
-	moneys.push_back(money::money(pos));
+	moneys.push_back(money(pos));
 }
 
 void GameEngine::objectDraw()

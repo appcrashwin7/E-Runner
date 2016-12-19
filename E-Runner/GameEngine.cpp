@@ -111,7 +111,6 @@ bool GameEngine::colisionManager()
 		{
 			points += 100;
 			moneys.erase(moneys.begin() + j);
-			this->HUD.setScore(points);
 			break;
 		}
 
@@ -195,7 +194,7 @@ int GameEngine::gameLoop()
 		KeyboardEventManager(speed);
 		if (this->engine_is_paused == false)
 		{
-			if (Numloop % 100 == 0)
+			if (Numloop % 50 == 0)
 			{
 				this->objectGenerator();
 			}
@@ -203,7 +202,6 @@ int GameEngine::gameLoop()
 			bool game_over = colisionManager();
 			if (game_over == true)
 			{
-				std::cout << "You lose!" << std::endl;
 				playerIsAlive = false;
 			}
 
@@ -214,6 +212,7 @@ int GameEngine::gameLoop()
 			targetWindow->setView(camera);
 			HUD.setNewGUIElementsPos(targetWindow);
 
+			addSomePoint();
 			speed += 0.001f;
 			Numloop++;
 		}
@@ -239,6 +238,7 @@ int GameEngine::gameLoop()
 				return 0;
 			}
 		}
+		this->HUD.setScore(points);
 
 		//graphics
 		targetWindow->clear();
@@ -293,6 +293,16 @@ bool GameEngine::loseLoop()
 	return false;
 }
 
+void GameEngine::addSomePoint()
+{
+	sf::Vector2f playerPos = player.getPosition();
+	int number = static_cast<int>(playerPos.y);
+	if (number % 25 == 0)
+	{
+		points += 1;
+	}
+}
+
 void GameEngine::objectGenerator()
 {
 	std::uniform_int_distribution <int> distribution(-100,500);
@@ -305,6 +315,7 @@ void GameEngine::objectGenerator()
 	pos.x = static_cast<float>(distribution(rand_engine));
 	obstacles.push_back(obstacle(pos));
 	pos.x = static_cast<float>(distribution(rand_engine));
+	pos.y -= 100.0f;
 	moneys.push_back(money(pos));
 }
 

@@ -46,6 +46,7 @@ private:
 	int gameLoop();	
 	void setCameraPos();
 	bool loseLoop();
+	void addSomePoint();
 
 	void objectDraw();
 	void drawGameArea();

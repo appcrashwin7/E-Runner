@@ -2,6 +2,7 @@
 
 #include "StartMenu.hpp"
 #include "GameEngine.hpp"
+#include "BestRunsRanks.hpp"
 
 int main()
 {
@@ -38,8 +39,12 @@ int main()
 			break;
 		}
 		case 2:
-			//BestRuns.menu_Start();
+		{
+			BestRunsRank *rank = new BestRunsRank();
+			rank->Loop(&Window);
+			delete rank;
 			break;
+		}
 		case 3:
 			return 1;
 			break;

@@ -118,9 +118,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BestRunsRanks.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="gameGUI.cpp" />
+    <ClCompile Include="IOoperator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="money.cpp" />
     <ClCompile Include="obstacle.cpp" />
@@ -128,9 +130,11 @@
     <ClCompile Include="StartMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BestRunsRanks.hpp" />
     <ClInclude Include="button.hpp" />
     <ClInclude Include="GameEngine.hpp" />
     <ClInclude Include="gameGUI.hpp" />
+    <ClInclude Include="IOoperator.hpp" />
     <ClInclude Include="MEDIA_operator.hpp" />
     <ClInclude Include="money.hpp" />
     <ClInclude Include="move_type.hpp" />
@@ -140,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bestRaces.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

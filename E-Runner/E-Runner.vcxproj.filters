@@ -39,6 +39,12 @@
     <ClCompile Include="money.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BestRunsRanks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IOoperator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartMenu.hpp">
@@ -68,10 +74,21 @@
     <ClInclude Include="move_type.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BestRunsRanks.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IOoperator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="bestRaces.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -28,7 +28,6 @@ class GameEngine
 	bool engine_is_prepared;
 	bool engine_is_paused;
 
-	//IO_operator score_operator;
 	MEDIA_operator media_container;
 
 	int points;

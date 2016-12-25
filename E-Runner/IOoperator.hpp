@@ -1,13 +1,22 @@
 #pragma once
-
-#include <string>
+#include <fstream>
 
 class IOoperator
 {
+	const std::string nameOfFile = "bestRaces.txt";
+	std::string rawScores[10]={""};
+
+	int scores[10] = {0};
+	std::string names[10] = {""};
+
 public:
 	IOoperator();
 	~IOoperator();
 
-	void getScoreFromFile(std::string score[10]);
-	void SaveScore(std::string newSc[10]);
+	void loadScoreFromFile();
+	void insertNewScore(std::string name,int &score);
+	void saveScoreToFile();
+	void divideRawToScoresAndNames();
+
+	std::string getRawData(size_t a);
 };

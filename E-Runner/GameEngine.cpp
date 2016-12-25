@@ -1,6 +1,8 @@
 #include "GameEngine.hpp"
 #include "move_type.hpp"
+#include "IOoperator.hpp"
 #include <iostream>
+#include <sstream>
 
 bool isUpKeyPressed()
 {
@@ -269,6 +271,19 @@ void GameEngine::setCameraPos()
 
 bool GameEngine::loseLoop()
 {
+	IOoperator scoreOperator;
+	scoreOperator.loadScoreFromFile();
+	scoreOperator.divideRawToScoresAndNames();
+
+	sf::Text nameOfplayer;
+	nameOfplayer.setFont(this->gameFont);
+	nameOfplayer.setPosition(targetWindow->mapPixelToCoords(sf::Vector2i(400,400)));
+	nameOfplayer.setFillColor(sf::Color::Blue);
+	const size_t maxTextLength = 8;
+
+	bool playerCanRename = true;
+
+	std::string StringnameOfPlayer = "";
 	while (targetWindow->isOpen())
 	{
 		sf::Event events;
@@ -276,18 +291,52 @@ bool GameEngine::loseLoop()
 		{
 			switch (events.type)
 			{
-			case sf::Event::Closed :
+			case sf::Event::Closed:
 				targetWindow->close();
 			}
-		}
+			if (playerCanRename == true)
+			{
+				if (events.type == sf::Event::TextEntered)
+				{
+					if (events.text.unicode < 128)
+					{
+						if (events.text.unicode == 8)
+						{
+							if (StringnameOfPlayer.size() > 0)
+							{
+								StringnameOfPlayer.pop_back();
+							}
+							nameOfplayer.setString(StringnameOfPlayer);
+							break;
+						}
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) == true && StringnameOfPlayer.size() >= 2)
+						{
+							playerCanRename = false;
+							scoreOperator.insertNewScore(StringnameOfPlayer, points);
+							scoreOperator.saveScoreToFile();
+							return true;
+						}
+						if (StringnameOfPlayer.size() >= maxTextLength)
+						{
+							break;
+						}
+						StringnameOfPlayer += static_cast<char>(events.text.unicode);
+						nameOfplayer.setString(StringnameOfPlayer);
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) == true)
+					}
+				}
+			}
+		}
+			nameOfplayer.setString(StringnameOfPlayer);
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
 		{
 			return true;
 		}
 
 		targetWindow->clear();
-		this->HUD.drawGUIWhenPlayerLose(targetWindow);
+		HUD.drawGUIWhenPlayerLose(targetWindow);
+		targetWindow->draw(nameOfplayer);
 		targetWindow->display();
 	}
 	return false;

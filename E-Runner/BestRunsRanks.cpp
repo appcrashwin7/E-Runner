@@ -57,11 +57,13 @@ void BestRunsRank::Loop(sf::RenderWindow * targetWindow)
 void BestRunsRank::loadScoresFromFile()
 {
 	IOoperator scoreLoader;
-	std::string scoreToLoad[10];
-	scoreLoader.getScoreFromFile(scoreToLoad);
+	std::string scoreToLoad;
+
+	scoreLoader.loadScoreFromFile();
 
 	for (size_t i = 0; i < 10; i++)
 	{
-		ScoreText[i].setString(scoreToLoad[i]);
+		scoreToLoad = scoreLoader.getRawData(i);
+		ScoreText[i].setString(scoreToLoad);
 	}
 }

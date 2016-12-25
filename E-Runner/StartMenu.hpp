@@ -19,7 +19,7 @@ class StartMenu
 public:
 	int MenuEvents();
 	void draw();
-	void create(sf::RenderWindow &targetW/* sf::Texture &textureForBackgImage*/);
+	void create(sf::RenderWindow &targetW);
 
 	StartMenu();
 	~StartMenu();

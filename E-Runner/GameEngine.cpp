@@ -1,7 +1,6 @@
 #include "GameEngine.hpp"
 #include "move_type.hpp"
 #include "IOoperator.hpp"
-#include <iostream>
 #include <sstream>
 
 bool isUpKeyPressed()
@@ -42,30 +41,6 @@ void GameEngine::configureEngine(sf::RenderWindow & twindow, sf::Vector2u window
 	engine_is_paused = false;
 	camera.setSize((sf::Vector2f)windowSize);
 	HUD.create(targetWindow, &gameFont);
-
-	if(checkEngine() != false)
-		this->engine_is_prepared = true;
-}
-
-bool GameEngine::checkEngine()
-{
-	if (targetWindow == nullptr)
-	{
-		std::cout << "GameEngine::targetWindow is null!" << std::endl;
-		return false;
-	}
-	sf::Vector2u size = targetWindow->getSize();
-	if (size.x < 800 || size.y < 600)
-	{
-		std::cout << "Window size is too small!" << std::endl;
-		return false;
-	}
-	if (size.x > 1920 || size.y > 1080)
-	{
-		std::cout << "Window size is too big!" << std::endl;
-		return false;
-	}
-	return true;
 }
 
 bool GameEngine::colisionManager()
@@ -152,9 +127,7 @@ void GameEngine::dataCleaner()
 
 void GameEngine::Start()
 {
-	if(engine_is_prepared == true)
 		this->gameLoop();
-	return;
 }
 
 GameEngine::GameEngine()
@@ -207,9 +180,6 @@ int GameEngine::gameLoop()
 				playerIsAlive = false;
 			}
 
-			sf::Vector2f test = this->player.getPosition();
-			std::cout << test.x << " " << test.y << "\n";
-
 			setCameraPos();
 			targetWindow->setView(camera);
 			HUD.setNewGUIElementsPos(targetWindow);
@@ -242,7 +212,6 @@ int GameEngine::gameLoop()
 		}
 		this->HUD.setScore(points);
 
-		//graphics
 		targetWindow->clear();
 		this->drawGameArea();
 			this->HUD.drawGameGUI(targetWindow,engine_is_paused);

@@ -15,7 +15,6 @@ class GameEngine
 	std::default_random_engine rand_engine;
 
 	sf::Font gameFont;
-	sf::Sprite gameBackground;
 
 	sf::RenderWindow *targetWindow;
 	sf::View camera;
@@ -25,7 +24,6 @@ class GameEngine
 	std::vector <obstacle> obstacles;
 	std::vector <money> moneys;
 
-	bool engine_is_prepared;
 	bool engine_is_paused;
 
 	MEDIA_operator media_container;
@@ -41,7 +39,6 @@ public:
 	GameEngine();
 	~GameEngine();
 private:
-	bool checkEngine();
 	int gameLoop();	
 	void setCameraPos();
 	bool loseLoop();

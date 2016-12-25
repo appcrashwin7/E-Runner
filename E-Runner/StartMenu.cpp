@@ -3,29 +3,16 @@
 
 void StartMenu::draw()
 {
-	if (Pwindow != nullptr)
-	{
 		Pwindow->clear();
 		Pwindow->draw(this->gameName);
 		Pwindow->draw(this->StartGame.getText());
 		Pwindow->draw(this->BestRuns.getText());
 		Pwindow->draw(this->Exit.getText());
-		//Pwindow->draw(this->backgroundImage);
 		Pwindow->display();
-	}
-	else
-	{
-		std::cout << "StartMenu::Pwindow is null!" << std::endl;
-	}
 }
 
 int StartMenu::MenuEvents()
 {
-	if (Pwindow == nullptr)
-	{
-		std::cout << "StartMenu::Pwindow is null!" << std::endl;
-		return 10;
-	}
 	sf::Event event;
 	Pwindow->pollEvent(event);
 	switch (event.type)
@@ -50,10 +37,9 @@ int StartMenu::MenuEvents()
 	return 0;
 }
 
-void StartMenu::create(sf::RenderWindow & targetW/* sf::Texture & textureForBackgImage*/)
+void StartMenu::create(sf::RenderWindow & targetW)
 {
 	Pwindow = &targetW;
-	//backgroundImage.setTexture(textureForBackgImage);
 }
 
 StartMenu::StartMenu()

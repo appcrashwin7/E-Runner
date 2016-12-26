@@ -32,13 +32,6 @@ void BestRunsRank::Loop(sf::RenderWindow * targetWindow)
 	{
 		sf::Event event;
 		targetWindow->pollEvent(event);
-		switch (event.type)
-		{
-		case sf::Event::Closed :
-			targetWindow->close();
-		default:
-			break;
-		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
 		{
 			return;

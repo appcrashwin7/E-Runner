@@ -14,14 +14,6 @@ int main()
 
 	while (true)
 	{
-		sf::Event event;
-
-		while (Window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				return 1;
-		}
-
 		switch (menuStart.MenuEvents())
 		{
 		case 10:

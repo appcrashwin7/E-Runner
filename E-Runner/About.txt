@@ -1,0 +1,12 @@
+E-runner
+Simply runner game made with SFML 2.4.1
+
+Code
+-appcrashwin7
+
+Music
+-The Arcade by Jens Kiilstofte https://machinimasound.com/music/the-arcade/
+-Licensed under Creative Commons Attribution 4.0 International (http://creativecommons.org/licenses/by/4.0/)
+
+Sound
+-qubodup(https://www.freesound.org/people/qubodup/)

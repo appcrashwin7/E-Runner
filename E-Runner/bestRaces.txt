@@ -1,10 +1,10 @@
 Patryk:1500
+Awesome:1329
 Monika:1200
 Maciej:1000
 Janusz:750
 Andrzej:500
+dd:314
 Jan:250
+Typowe:209
 Andzelika:109
-Sebastian:100
-Pawel:75
-Radom:20

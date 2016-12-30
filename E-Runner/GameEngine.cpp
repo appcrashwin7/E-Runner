@@ -71,6 +71,8 @@ bool GameEngine::colisionManager()
 		{ }
 		else
 		{
+			media_container.gameMusic.stop();
+			media_container.collisionSound.play();
 			return true;
 		}
 	}
@@ -135,6 +137,7 @@ GameEngine::GameEngine()
 	rand_engine.seed(static_cast<unsigned int>(time(NULL)));
 	points = 0;
 	playerIsAlive = true;
+	media_container.loadAllMedia();
 }
 
 GameEngine::~GameEngine()
@@ -148,6 +151,9 @@ int GameEngine::gameLoop()
 {
 	float speed = 0.5f;
 	int Numloop = 1;
+	media_container.gameMusic.play();
+	media_container.gameMusic.setVolume(40);
+	media_container.gameMusic.setLoop(true);
 	while (targetWindow->isOpen())
 	{
 		this->EventManager();
@@ -204,6 +210,7 @@ int GameEngine::gameLoop()
 				obstacles.clear();
 				moneys.clear();
 				playerIsAlive = true;
+				media_container.gameMusic.play();
 			}
 			else
 			{
@@ -248,6 +255,12 @@ bool GameEngine::loseLoop()
 	nameOfplayer.setFont(this->gameFont);
 	nameOfplayer.setPosition(targetWindow->mapPixelToCoords(sf::Vector2i(400,400)));
 	nameOfplayer.setFillColor(sf::Color::Blue);
+
+	sf::Text info;
+	info.setFont(this->gameFont);
+	info.setPosition(targetWindow->mapPixelToCoords(sf::Vector2i(150, 400)));
+	info.setFillColor(sf::Color::Red);
+	info.setString("Type you name:");
 	const size_t maxTextLength = 8;
 
 	bool playerCanRename = true;
@@ -306,6 +319,7 @@ bool GameEngine::loseLoop()
 		targetWindow->clear();
 		HUD.drawGUIWhenPlayerLose(targetWindow);
 		targetWindow->draw(nameOfplayer);
+		targetWindow->draw(info);
 		targetWindow->display();
 	}
 	return false;
@@ -378,6 +392,7 @@ void GameEngine::KeyboardEventManager(float speedMod)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
 		{
+			media_container.gameMusic.pause();
 			engine_is_paused = true;
 			return;
 		}
@@ -411,6 +426,7 @@ void GameEngine::KeyboardEventManager(float speedMod)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
 		{
+			media_container.gameMusic.play();
 			engine_is_paused = false;
 		}
 	}

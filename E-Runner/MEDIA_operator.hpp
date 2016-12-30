@@ -4,16 +4,14 @@
 
 struct MEDIA_operator
 {
-	sf::Texture playerTexture;
-	sf::Texture objectsTexture[5];
-	sf::Texture Backgroundtexture;
-
-	sf::Font gameFonts[2];
-
 	sf::Music gameMusic;
-	sf::Sound collisionSounds[5];
-
+	sf::SoundBuffer collisonSoundBuffer;
+	sf::Sound collisionSound;
 
 	void loadAllMedia()
-	{}
+	{
+		gameMusic.openFromFile("music.flac");
+		collisonSoundBuffer.loadFromFile("qubodup__fast-collision-reverb.flac");
+		collisionSound.setBuffer(collisonSoundBuffer);
+	}
 };

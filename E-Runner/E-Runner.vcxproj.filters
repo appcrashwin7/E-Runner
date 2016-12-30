@@ -85,10 +85,21 @@
     <None Include="README.md">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="qubodup__fast-collision-reverb.flac">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="bestRaces.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="About.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="MachinimaSound.com_-_The_Arcade.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

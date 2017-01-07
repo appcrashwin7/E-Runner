@@ -45,6 +45,9 @@
     <ClCompile Include="IOoperator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="keyEvents.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartMenu.hpp">

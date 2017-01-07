@@ -1,35 +1,8 @@
 #include "GameEngine.hpp"
 #include "move_type.hpp"
 #include "IOoperator.hpp"
+#include "keyEvents.hpp"
 #include <sstream>
-
-bool isUpKeyPressed()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) == true
-		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up) == true)
-	{
-		return true;
-	}
-	return false;
-}
-bool isLeftKeyPressed()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) == true
-		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Left) == true)
-	{
-		return true;
-	}
-	return false;
-}
-bool isRightKeyPressed()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) == true
-		|| sf::Keyboard::isKeyPressed(sf::Keyboard::Right) == true)
-	{
-		return true;
-	}
-	return false;
-}
 
 void GameEngine::configureEngine(sf::RenderWindow & twindow, sf::Vector2u windowSize, unsigned int framerate)
 {
@@ -385,6 +358,7 @@ int GameEngine::EventManager(sf::Event &windowEvent)
 
 void GameEngine::KeyboardEventManager(float speedMod)
 {
+	keyEvents keEv;
 	if (this->engine_is_paused == false)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
@@ -394,23 +368,23 @@ void GameEngine::KeyboardEventManager(float speedMod)
 			return;
 		}
 
-		if (isLeftKeyPressed() && isUpKeyPressed() == true)
+		if (keEv.isLeftKeyPressed() && keEv.isUpKeyPressed() == true)
 		{
 			this->player.move(move_type::up_and_left, speedMod);
 		}
-		else if (isRightKeyPressed() && isUpKeyPressed() == true)
+		else if (keEv.isRightKeyPressed() && keEv.isUpKeyPressed() == true)
 		{
 			this->player.move(move_type::up_and_right, speedMod);
 		}
-		else if (isUpKeyPressed() == true)
+		else if (keEv.isUpKeyPressed() == true)
 		{
 			this->player.move(move_type::up, speedMod);
 		}
-		else if (isLeftKeyPressed() == true)
+		else if (keEv.isLeftKeyPressed() == true)
 		{
 			this->player.move(move_type::left, speedMod);
 		}
-		else if (isRightKeyPressed() == true)
+		else if (keEv.isRightKeyPressed() == true)
 		{
 			this->player.move(move_type::right, speedMod);
 		}

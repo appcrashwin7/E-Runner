@@ -126,6 +126,7 @@
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="gameGUI.cpp" />
     <ClCompile Include="IOoperator.cpp" />
+    <ClCompile Include="keyEvents.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="money.cpp" />
     <ClCompile Include="obstacle.cpp" />

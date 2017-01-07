@@ -28,7 +28,7 @@ int main()
 			game->configureEngine(Window, sf::Vector2u(1024, 768), 30);
 			game->Start();
 			delete game;
-			break;
+			return EXIT_SUCCESS;
 		}
 		case 2:
 		{

@@ -151,9 +151,12 @@ int GameEngine::gameLoop()
 	media_container.gameMusic.play();
 	media_container.gameMusic.setVolume(40);
 	media_container.gameMusic.setLoop(true);
+
+	sf::Event loopEvents;
+
 	while (targetWindow->isOpen())
 	{
-		this->EventManager();
+		this->EventManager(loopEvents);
 
 		if (engine_is_paused == true)
 		{
@@ -196,7 +199,7 @@ int GameEngine::gameLoop()
 
 		if (playerIsAlive == false)
 		{
-			bool playerWantRestartGame = loseLoop();
+			bool playerWantRestartGame = loseLoop(loopEvents);
 			if (playerWantRestartGame == true)
 			{
 				speed = 0.5f;
@@ -242,7 +245,7 @@ void GameEngine::setCameraPos()
 	camera.setCenter(newCameraPos);
 }
 
-bool GameEngine::loseLoop()
+bool GameEngine::loseLoop(sf::Event &events)
 {
 	IOoperator scoreOperator;
 	scoreOperator.loadScoreFromFile();
@@ -265,7 +268,6 @@ bool GameEngine::loseLoop()
 	std::string StringnameOfPlayer = "";
 	while (targetWindow->isOpen())
 	{
-		sf::Event events;
 		while (targetWindow->pollEvent(events))
 		{
 			switch (events.type)
@@ -360,10 +362,8 @@ void GameEngine::objectDraw()
 	}
 }
 
-int GameEngine::EventManager()
+int GameEngine::EventManager(sf::Event &windowEvent)
 {
-	sf::Event windowEvent;
-
 	targetWindow->pollEvent(windowEvent);
 
 	switch (windowEvent.type)

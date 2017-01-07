@@ -41,13 +41,13 @@ public:
 private:
 	int gameLoop();	
 	void setCameraPos();
-	bool loseLoop();
+	bool loseLoop(sf::Event &events);
 	void addSomePoint();
 
 	void objectDraw();
 	void drawGameArea();
 
-	int EventManager();
+	int EventManager(sf::Event &windowEvent);
 	void KeyboardEventManager(float speedMod);
 	bool colisionManager();
 	bool IsNotCollision(sf::Vector2f objPos, sf::Vector2f objSize);

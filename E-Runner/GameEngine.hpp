@@ -50,6 +50,7 @@ private:
 	int EventManager();
 	void KeyboardEventManager(float speedMod);
 	bool colisionManager();
+	bool IsNotCollision(sf::Vector2f objPos, sf::Vector2f objSize);
 
 	void objectGenerator();
 	void dataCleaner();

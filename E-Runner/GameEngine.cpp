@@ -59,17 +59,10 @@ bool GameEngine::colisionManager()
 		playerPos.x = playerPos.x - mov;
 		this->player.setPosition(playerPos);
 	}
-	sf::Vector2f objPos;
-	sf::Vector2f objSize;
+
 	for (size_t i = 0; i < obstacles.size(); i++)
 	{
-		objPos = obstacles[i].getPosition();
-		objSize = obstacles[i].getSize();
-
-		if (playerPos.x > objPos.x + objSize.x || playerPos.x + playerSize.x < objPos.x ||
-			playerPos.y > objPos.y + objSize.y || playerPos.y + playerSize.y < objPos.y)
-		{ }
-		else
+		if(IsNotCollision(obstacles[i].getPosition(),obstacles[i].getSize()) == false)
 		{
 			media_container.gameMusic.stop();
 			media_container.collisionSound.play();
@@ -79,22 +72,26 @@ bool GameEngine::colisionManager()
 
 	for (size_t j = 0; j < moneys.size(); j++)
 	{
-		objPos = moneys[j].getPosition();
-		objSize = moneys[j].getSize();
-
-		if (playerPos.x > objPos.x + objSize.x || playerPos.x + playerSize.x < objPos.x ||
-			playerPos.y > objPos.y + objSize.y || playerPos.y + playerSize.y < objPos.y)
-		{
-		}
-		else
+		if (IsNotCollision(moneys[j].getPosition(),moneys[j].getSize()) == false)
 		{
 			points += 100;
 			moneys.erase(moneys.begin() + j);
 			break;
 		}
-
 	}
 
+	return false;
+}
+
+bool GameEngine::IsNotCollision(sf::Vector2f objPos, sf::Vector2f objSize)
+{
+	sf::Vector2f playerPos = this->player.getPosition();
+	sf::Vector2f playerSize = this->player.getSize();
+	if (playerPos.x > objPos.x + objSize.x || playerPos.x + playerSize.x < objPos.x ||
+		playerPos.y > objPos.y + objSize.y || playerPos.y + playerSize.y < objPos.y)
+	{
+		return true;
+	}
 	return false;
 }
 

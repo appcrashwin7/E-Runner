@@ -340,13 +340,29 @@ void GameEngine::objectGenerator()
 
 void GameEngine::objectDraw()
 {
-	for (size_t i = 0; i < moneys.size(); i++)
+	size_t max;
+	size_t i = 0;
+	if (obstacles.size() > moneys.size())
 	{
-		targetWindow->draw(*moneys[i].getShape());
+		max = obstacles.size();
 	}
-	for (size_t i = 0; i < obstacles.size(); i++)
+	else
 	{
-		targetWindow->draw(*obstacles[i].getObstacleShape());
+		max = moneys.size();
+	}
+
+	while (i < max)
+	{
+		if (i < obstacles.size())
+		{
+			targetWindow->draw(*obstacles[i].getObstacleShape());
+		}
+
+		if (i < moneys.size())
+		{
+			targetWindow->draw(*moneys[i].getShape());
+		}
+		i++;
 	}
 }
 

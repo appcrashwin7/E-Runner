@@ -33,24 +33,39 @@ bool GameEngine::colisionManager()
 		this->player.setPosition(playerPos);
 	}
 
-	for (size_t i = 0; i < obstacles.size(); i++)
+	size_t max;
+	size_t i = 0;
+	if (obstacles.size() > moneys.size())
 	{
-		if(IsNotCollision(obstacles[i].getPosition(),obstacles[i].getSize()) == false)
-		{
-			media_container.gameMusic.stop();
-			media_container.collisionSound.play();
-			return true;
-		}
+		max = obstacles.size();
+	}
+	else
+	{
+		max = moneys.size();
 	}
 
-	for (size_t j = 0; j < moneys.size(); j++)
+	while (i<max)
 	{
-		if (IsNotCollision(moneys[j].getPosition(),moneys[j].getSize()) == false)
+		if (i < obstacles.size())
 		{
-			points += 100;
-			moneys.erase(moneys.begin() + j);
-			break;
+			if (IsNotCollision(obstacles[i].getPosition(), obstacles[i].getSize()) == false)
+			{
+				media_container.gameMusic.stop();
+				media_container.collisionSound.play();
+				return true;
+			}
 		}
+
+		if (i < moneys.size())
+		{
+			if (IsNotCollision(moneys[i].getPosition(), moneys[i].getSize()) == false)
+			{
+				points += 100;
+				moneys.erase(moneys.begin() + i);
+				break;
+			}
+		}
+		i++;
 	}
 
 	return false;

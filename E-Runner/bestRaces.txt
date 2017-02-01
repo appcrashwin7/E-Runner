@@ -7,4 +7,4 @@ Andrzej:500
 dd:314
 Jan:250
 Typowe:209
-Andzelika:109
+m:111

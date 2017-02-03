@@ -2,6 +2,7 @@
 #include "move_type.hpp"
 #include "IOoperator.hpp"
 #include "keyEvents.hpp"
+#include "textbox.hpp"
 #include <sstream>
 
 void GameEngine::configureEngine(sf::RenderWindow & twindow, sf::Vector2u windowSize, unsigned int framerate)
@@ -239,21 +240,18 @@ bool GameEngine::loseLoop(sf::Event &events)
 	scoreOperator.loadScoreFromFile();
 	scoreOperator.divideRawToScoresAndNames();
 
-	sf::Text nameOfplayer;
-	nameOfplayer.setFont(this->gameFont);
-	nameOfplayer.setPosition(targetWindow->mapPixelToCoords(sf::Vector2i(400,400)));
-	nameOfplayer.setFillColor(sf::Color::Blue);
-
 	sf::Text info;
 	info.setFont(this->gameFont);
 	info.setPosition(targetWindow->mapPixelToCoords(sf::Vector2i(150, 400)));
 	info.setFillColor(sf::Color::Red);
 	info.setString("Type you name:");
-	const size_t maxTextLength = 8;
 
-	bool playerCanRename = true;
+	textbox playerName;
+	playerName.create(this->gameFont, false, "fe3223f3", 12);
+	playerName.changeVars(sf::Color::Blue, 32, sf::Text::Regular);
+	playerName.setPosition(static_cast<sf::Vector2u>(targetWindow->mapPixelToCoords(sf::Vector2i(180, 400))));
+	playerName.setEnable(true);
 
-	std::string StringnameOfPlayer = "";
 	while (targetWindow->isOpen())
 	{
 		while (targetWindow->pollEvent(events))
@@ -263,40 +261,9 @@ bool GameEngine::loseLoop(sf::Event &events)
 			case sf::Event::Closed:
 				targetWindow->close();
 			}
-			if (playerCanRename == true)
-			{
-				if (events.type == sf::Event::TextEntered)
-				{
-					if (events.text.unicode < 128)
-					{
-						if (events.text.unicode == 8)
-						{
-							if (StringnameOfPlayer.size() > 0)
-							{
-								StringnameOfPlayer.pop_back();
-							}
-							nameOfplayer.setString(StringnameOfPlayer);
-							break;
-						}
-						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) == true && StringnameOfPlayer.size() >= 2)
-						{
-							playerCanRename = false;
-							scoreOperator.insertNewScore(StringnameOfPlayer, points);
-							scoreOperator.saveScoreToFile();
-							return true;
-						}
-						if (StringnameOfPlayer.size() >= maxTextLength)
-						{
-							break;
-						}
-						StringnameOfPlayer += static_cast<char>(events.text.unicode);
-						nameOfplayer.setString(StringnameOfPlayer);
-
-					}
-				}
-			}
+			
 		}
-			nameOfplayer.setString(StringnameOfPlayer);
+		playerName(events);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
 		{
@@ -305,7 +272,7 @@ bool GameEngine::loseLoop(sf::Event &events)
 
 		targetWindow->clear();
 		HUD.drawGUIWhenPlayerLose(targetWindow);
-		targetWindow->draw(nameOfplayer);
+		targetWindow->draw(playerName.getText());
 		targetWindow->draw(info);
 		targetWindow->display();
 	}

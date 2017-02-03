@@ -236,20 +236,23 @@ void GameEngine::setCameraPos()
 
 bool GameEngine::loseLoop(sf::Event &events)
 {
+	targetWindow->setView(targetWindow->getDefaultView());
+	HUD.setNewGUIElementsPos(targetWindow);
+
 	IOoperator scoreOperator;
 	scoreOperator.loadScoreFromFile();
 	scoreOperator.divideRawToScoresAndNames();
 
 	sf::Text info;
 	info.setFont(this->gameFont);
-	info.setPosition(targetWindow->mapPixelToCoords(sf::Vector2i(150, 400)));
+	info.setPosition(sf::Vector2f(100, 400));
 	info.setFillColor(sf::Color::Red);
 	info.setString("Type you name:");
 
 	textbox playerName;
-	playerName.create(this->gameFont, false, "fe3223f3", 12);
+	playerName.create(this->gameFont, false, "", 12);
 	playerName.changeVars(sf::Color::Blue, 32, sf::Text::Regular);
-	playerName.setPosition(static_cast<sf::Vector2u>(targetWindow->mapPixelToCoords(sf::Vector2i(180, 400))));
+	playerName.setPosition(sf::Vector2u(320, 400));
 	playerName.setEnable(true);
 
 	while (targetWindow->isOpen())
@@ -292,7 +295,6 @@ void GameEngine::addSomePoint()
 void GameEngine::objectGenerator()
 {
 	std::uniform_int_distribution <int> distribution(-100,500);
-
 
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 1000;

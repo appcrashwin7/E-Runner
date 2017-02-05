@@ -293,7 +293,7 @@ bool GameEngine::loseLoop(sf::Event &events)
 			return false;
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) == true)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) == true && scoreOperator.thisScoreIsEnough(points) == true)
 		{
 			scoreOperator.insertNewScore(playerName.getString(), points);
 			scoreOperator.saveScoreToFile();

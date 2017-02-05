@@ -3,7 +3,6 @@
 runner::runner()
 {
 	runnerBody.setSize(sf::Vector2f(100, 100));
-	runnerBody.setFillColor(sf::Color::Blue);
 }
 
 runner::~runner()

@@ -89,28 +89,40 @@ void GameEngine::dataCleaner()
 	sf::Vector2f objPos;
 	sf::Vector2f playerPos = this->player.getPosition();
 
-	size_t lastObj = 0;
+	size_t lastObj_a = 0;
+	size_t lastObj_b = 0;
 
-	for (size_t i = 0; i < obstacles.size(); i++)
+	size_t max;
+	if (obstacles.size() > moneys.size())
 	{
-		objPos = obstacles[i].getPosition();
-		if (objPos.y > playerPos.y + 200)
-		{
-			lastObj = i;
-		}
+		max = obstacles.size();
 	}
-		obstacles.erase(obstacles.begin(),obstacles.begin()+lastObj);
+	else
+		max = moneys.size();
 
-		lastObj = 0;
-		for (size_t i = 0; i < moneys.size(); i++)
+	size_t i = 0;
+	while (i < max)
+	{
+		if (i < obstacles.size())
+		{
+			objPos = obstacles[i].getPosition();
+			if (objPos.y > playerPos.y + 200)
+			{
+				lastObj_a = i;
+			}
+		}
+		if (i < moneys.size())
 		{
 			objPos = moneys[i].getPosition();
 			if (objPos.y > playerPos.y + 200)
 			{
-				lastObj = i;
+				lastObj_b = i;
 			}
 		}
-		moneys.erase(moneys.begin(), moneys.begin() + lastObj);
+		i++;
+	}
+		obstacles.erase(obstacles.begin(),obstacles.begin()+lastObj_a);
+		moneys.erase(moneys.begin(), moneys.begin() + lastObj_b);
 }
 
 void GameEngine::Start()

@@ -111,4 +111,15 @@
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="moneys.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="obstacle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="runner.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -276,6 +276,9 @@ bool GameEngine::loseLoop(sf::Event &events)
 		info.setString(":(");
 	}
 
+	sf::Clock clock;
+	sf::Time timeForTyping;
+
 	while (targetWindow->isOpen())
 	{
 		while (targetWindow->pollEvent(events))
@@ -300,7 +303,12 @@ bool GameEngine::loseLoop(sf::Event &events)
 			return true;
 		}
 
-		playerName(events);
+		timeForTyping = clock.getElapsedTime();
+		if (timeForTyping.asSeconds() > 0.10f)
+		{
+			playerName(events);
+			clock.restart();
+		}
 
 		targetWindow->clear();
 		HUD.drawGUIWhenPlayerLose(targetWindow);

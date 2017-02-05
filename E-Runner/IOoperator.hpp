@@ -18,5 +18,7 @@ public:
 	void saveScoreToFile();
 	void divideRawToScoresAndNames();
 
+	bool thisScoreIsEnough(int score);
+
 	std::string getRawData(size_t a);
 };

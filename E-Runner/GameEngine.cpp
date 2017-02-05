@@ -124,6 +124,7 @@ GameEngine::GameEngine()
 	points = 0;
 	playerIsAlive = true;
 	media_container.loadAllMedia();
+	player.create(&media_container.runnerTexture, sf::Vector2f());
 }
 
 GameEngine::~GameEngine()
@@ -247,13 +248,21 @@ bool GameEngine::loseLoop(sf::Event &events)
 	info.setFont(this->gameFont);
 	info.setPosition(sf::Vector2f(100, 400));
 	info.setFillColor(sf::Color::Red);
-	info.setString("Type you name:");
-
+	
 	textbox playerName;
 	playerName.create(this->gameFont, false, "", 12);
 	playerName.changeVars(sf::Color::Blue, 32, sf::Text::Regular);
 	playerName.setPosition(sf::Vector2u(320, 400));
-	playerName.setEnable(true);
+
+	if (scoreOperator.thisScoreIsEnough(points) == true)
+	{
+		info.setString("Type you name:");
+		playerName.setEnable(true);
+	}
+	else
+	{
+		info.setString(":(");
+	}
 
 	while (targetWindow->isOpen())
 	{
@@ -266,12 +275,20 @@ bool GameEngine::loseLoop(sf::Event &events)
 			}
 			
 		}
-		playerName(events);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
 		{
+			return false;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) == true)
+		{
+			scoreOperator.insertNewScore(playerName.getString(), points);
+			scoreOperator.saveScoreToFile();
 			return true;
 		}
+
+		playerName(events);
 
 		targetWindow->clear();
 		HUD.drawGUIWhenPlayerLose(targetWindow);
@@ -299,12 +316,12 @@ void GameEngine::objectGenerator()
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 1000;
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle(pos));
+	obstacles.push_back(obstacle(pos,media_container.obstTexture));
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle(pos));
+	obstacles.push_back(obstacle(pos,media_container.obstTexture));
 	pos.x = static_cast<float>(distribution(rand_engine));
 	pos.y -= 100.0f;
-	moneys.push_back(money(pos));
+	moneys.push_back(money(pos,media_container.moneysTexture));
 }
 
 void GameEngine::objectDraw()

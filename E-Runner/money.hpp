@@ -8,7 +8,7 @@ class money
 
 public:
 	money();
-	money(sf::Vector2f pos);
+	money(sf::Vector2f pos,const sf::Texture &textr);
 	~money();
 
 	sf::Vector2f getPosition();

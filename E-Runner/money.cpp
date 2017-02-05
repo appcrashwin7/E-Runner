@@ -6,9 +6,10 @@ money::money()
 	moneyShape.setFillColor(sf::Color::Yellow);
 }
 
-money::money(sf::Vector2f pos)
+money::money(sf::Vector2f pos,const sf::Texture &textr)
 	:money()
 {
+	moneyShape.setTexture(&textr);
 	moneyShape.setPosition(pos);
 }
 

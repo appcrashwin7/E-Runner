@@ -81,6 +81,16 @@ void IOoperator::divideRawToScoresAndNames()
 	}
 }
 
+bool IOoperator::thisScoreIsEnough(int score)
+{
+	if (score > scores[9])
+	{
+		return true;
+	}
+	
+	return false;
+}
+
 std::string IOoperator::getRawData(size_t a)
 {
 	return rawScores[a];

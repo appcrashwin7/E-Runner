@@ -9,9 +9,10 @@ obstacle::obstacle()
 obstacle::~obstacle()
 {}
 
-obstacle::obstacle(sf::Vector2f position)
+obstacle::obstacle(sf::Vector2f position,const sf::Texture &textr)
 	:obstacle()
 {
+	obstacleShape.setTexture(&textr);
 	obstacleShape.setPosition(position);
 }
 

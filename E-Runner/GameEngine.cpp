@@ -276,9 +276,6 @@ bool GameEngine::loseLoop(sf::Event &events)
 		info.setString(":(");
 	}
 
-	sf::Clock clock;
-	sf::Time timeForTyping;
-
 	while (targetWindow->isOpen())
 	{
 		while (targetWindow->pollEvent(events))
@@ -288,26 +285,19 @@ bool GameEngine::loseLoop(sf::Event &events)
 			case sf::Event::Closed:
 				targetWindow->close();
 			}
-			
-		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
-		{
-			return false;
-		}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) == true)
+			{
+				return false;
+			}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) == true && scoreOperator.thisScoreIsEnough(points) == true)
-		{
-			scoreOperator.insertNewScore(playerName.getString(), points);
-			scoreOperator.saveScoreToFile();
-			return true;
-		}
-
-		timeForTyping = clock.getElapsedTime();
-		if (timeForTyping.asSeconds() > 0.10f)
-		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) == true && scoreOperator.thisScoreIsEnough(points) == true)
+			{
+				scoreOperator.insertNewScore(playerName.getString(), points);
+				scoreOperator.saveScoreToFile();
+				return true;
+			}
 			playerName(events);
-			clock.restart();
 		}
 
 		targetWindow->clear();

@@ -89,12 +89,15 @@
     <ClInclude Include="textbox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="back_obstacle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="qubodup__fast-collision-reverb.flac">
+    <None Include="collision.flac">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -112,13 +115,10 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="moneys.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="obstacle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="runner.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bonus.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

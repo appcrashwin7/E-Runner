@@ -9,6 +9,7 @@
 #include "gameGUI.hpp"
 #include "obstacle.hpp"
 #include "money.hpp"
+#include "back_obstacle.hpp"
 
 class GameEngine
 {
@@ -23,6 +24,7 @@ class GameEngine
 	runner player;
 	std::vector <obstacle> obstacles;
 	std::vector <money> moneys;
+	back_obstacle walls[2];
 
 	bool engine_is_paused;
 
@@ -54,4 +56,5 @@ private:
 
 	void objectGenerator();
 	void dataCleaner();
+	void setWallPosition();
 };

@@ -3,7 +3,6 @@
 money::money()
 {
 	moneyShape.setSize(sf::Vector2f(50, 50));
-	moneyShape.setFillColor(sf::Color::Yellow);
 }
 
 money::money(sf::Vector2f pos,const sf::Texture &textr)

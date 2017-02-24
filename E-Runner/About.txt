@@ -1,5 +1,5 @@
 E-runner
-Simply runner game made with SFML 2.4.1
+Simply runner game made with SFML 2.4.0
 
 Code
 -appcrashwin7
@@ -10,3 +10,6 @@ Music
 
 Sound
 -qubodup(https://www.freesound.org/people/qubodup/)
+
+Graphics
+-appcrashwin7

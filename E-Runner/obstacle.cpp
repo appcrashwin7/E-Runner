@@ -6,6 +6,12 @@ obstacle::obstacle()
 	obstacleShape.setFillColor(sf::Color::Red);
 }
 
+obstacle::obstacle(sf::Vector2f position)
+	:obstacle()
+{
+	obstacleShape.setPosition(position);
+}
+
 obstacle::~obstacle()
 {}
 

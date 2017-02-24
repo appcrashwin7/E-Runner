@@ -19,7 +19,7 @@ void gameGUI::create(sf::RenderWindow *targetWindow,sf::Font *font)
 	this->score.setString("0");
 	this->score.setPosition(targetWindow->mapPixelToCoords(sf::Vector2i(100, 100)));
 	this->score.setFont(*font);
-	this->score.setFillColor(sf::Color::Red);
+	this->score.setFillColor(sf::Color::White);
 
 	this->youLose.setString("You Lose");
 	this->youLose.setFillColor(sf::Color(150, 100, 50));
@@ -40,7 +40,7 @@ void gameGUI::setScore(int newScore)
 
 void gameGUI::setNewGUIElementsPos(sf::RenderWindow * window)
 {
-	this->score.setPosition(window->mapPixelToCoords(sf::Vector2i(100, 100)));
+	this->score.setPosition(window->mapPixelToCoords(sf::Vector2i(200, 100)));
 	this->information.setPosition(window->mapPixelToCoords(sf::Vector2i(400, 200)));
 	this->youLose.setPosition(window->mapPixelToCoords(sf::Vector2i(400, 50)));
 

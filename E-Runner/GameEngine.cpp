@@ -125,6 +125,14 @@ void GameEngine::dataCleaner()
 		moneys.erase(moneys.begin(), moneys.begin() + lastObj_b);
 }
 
+void GameEngine::setWallPosition()
+{
+	sf::Vector2f new1WallPos = this->targetWindow->mapPixelToCoords(sf::Vector2i(30,0));
+	sf::Vector2f new2WallPos = this->targetWindow->mapPixelToCoords(sf::Vector2i(895,0));
+	walls[0].setPosition(new1WallPos);
+	walls[1].setPosition(new2WallPos);
+}
+
 void GameEngine::Start()
 {
 		this->gameLoop();
@@ -220,11 +228,12 @@ int GameEngine::gameLoop()
 			}
 		}
 		this->HUD.setScore(points);
+		setWallPosition();
 
 		targetWindow->clear();
+		objectDraw();
 		this->drawGameArea();
 			this->HUD.drawGameGUI(targetWindow,engine_is_paused);
-		objectDraw();
 		targetWindow->display();
 	}
 	return 0;
@@ -326,9 +335,9 @@ void GameEngine::objectGenerator()
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 1000;
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle(pos,media_container.obstTexture));
+	obstacles.push_back(obstacle(pos));
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle(pos,media_container.obstTexture));
+	obstacles.push_back(obstacle(pos));
 	pos.x = static_cast<float>(distribution(rand_engine));
 	pos.y -= 100.0f;
 	moneys.push_back(money(pos,media_container.moneysTexture));
@@ -349,6 +358,11 @@ void GameEngine::objectDraw()
 
 	while (i < max)
 	{
+		if (i < 2)
+		{
+			targetWindow->draw(*walls[i].getShape());
+		}
+
 		if (i < obstacles.size())
 		{
 			targetWindow->draw(*obstacles[i].getObstacleShape());

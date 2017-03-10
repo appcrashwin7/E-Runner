@@ -9,6 +9,7 @@ struct MEDIA_operator
 	sf::Sound collisionSound;
 
 	sf::Texture backobstTexture;
+	sf::Texture obstTexture;
 	sf::Texture moneysTexture;
 	sf::Texture runnerTexture;
 
@@ -23,5 +24,11 @@ struct MEDIA_operator
 
 		runnerTexture.loadFromFile("runner.png");
 		runnerTexture.setSmooth(true);
+
+		backobstTexture.loadFromFile("obstacleback.png");
+		backobstTexture.setSmooth(true);
+
+		obstTexture.loadFromFile("obstacle.png");
+		obstTexture.setSmooth(true);
 	}
 };

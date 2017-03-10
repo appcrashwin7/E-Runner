@@ -7,8 +7,9 @@
 int main()
 {
 	sf::RenderWindow Window;
-	Window.create(sf::VideoMode(1024, 768, 32), "E-Runner", sf::Style::Default);
-	Window.setFramerateLimit(30);
+	Window.create(sf::VideoMode(1024, 768, 32), "E-Runner", sf::Style::Fullscreen);
+	Window.setFramerateLimit(60);
+	Window.setVerticalSyncEnabled(true);
 	StartMenu menuStart;
 	menuStart.create(Window);
 

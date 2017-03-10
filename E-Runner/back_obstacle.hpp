@@ -7,10 +7,12 @@ class back_obstacle
 	sf::RectangleShape obstShape;
 
 public:
-	back_obstacle()
+	back_obstacle(sf::Texture *txtr)
 	{
-		obstShape.setFillColor(sf::Color::Red);
+		//obstShape.setFillColor(sf::Color::White);
 		obstShape.setSize(sf::Vector2f(100, 800));
+		obstShape.setPosition(sf::Vector2f(1000, 1000));
+		obstShape.setTexture(txtr);
 	}
 	~back_obstacle(){}
 

@@ -137,7 +137,6 @@
     <ClCompile Include="keyEvents.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="money.cpp" />
-    <ClCompile Include="obstacle.cpp" />
     <ClCompile Include="runner.cpp" />
     <ClCompile Include="StartMenu.cpp" />
     <ClCompile Include="textbox.cpp" />
@@ -170,6 +169,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="bonus.png" />
+    <Image Include="obstacle.png" />
+    <Image Include="obstacle_back.png" />
     <Image Include="runner.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

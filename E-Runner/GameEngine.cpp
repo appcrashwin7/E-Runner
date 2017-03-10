@@ -140,6 +140,10 @@ void GameEngine::Start()
 
 GameEngine::GameEngine()
 {
+	for (size_t i = 0; i < 2; i++)
+	{
+		walls.push_back(back_obstacle(&media_container.backobstTexture));
+	}
 	rand_engine.seed(static_cast<unsigned int>(time(NULL)));
 	points = 0;
 	playerIsAlive = true;
@@ -152,6 +156,7 @@ GameEngine::~GameEngine()
 	targetWindow = nullptr;
 	obstacles.clear();
 	moneys.clear();
+	walls.clear();
 }
 
 int GameEngine::gameLoop()
@@ -335,9 +340,9 @@ void GameEngine::objectGenerator()
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 1000;
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle(pos));
+	obstacles.push_back(obstacle(pos,media_container.obstTexture));
 	pos.x = static_cast<float>(distribution(rand_engine));
-	obstacles.push_back(obstacle(pos));
+	obstacles.push_back(obstacle(pos,media_container.obstTexture));
 	pos.x = static_cast<float>(distribution(rand_engine));
 	pos.y -= 100.0f;
 	moneys.push_back(money(pos,media_container.moneysTexture));

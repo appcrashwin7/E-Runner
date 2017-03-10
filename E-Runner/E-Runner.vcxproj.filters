@@ -33,9 +33,6 @@
     <ClCompile Include="gameGUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="obstacle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="money.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -119,6 +116,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="bonus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="obstacle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="obstacle_back.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

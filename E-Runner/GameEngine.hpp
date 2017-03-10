@@ -24,7 +24,7 @@ class GameEngine
 	runner player;
 	std::vector <obstacle> obstacles;
 	std::vector <money> moneys;
-	back_obstacle walls[2];
+	std::vector <back_obstacle> walls;
 
 	bool engine_is_paused;
 

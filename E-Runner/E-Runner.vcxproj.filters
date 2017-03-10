@@ -112,16 +112,7 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="runner.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="bonus.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="obstacle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="obstacle_back.png">
+    <Image Include="textures.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

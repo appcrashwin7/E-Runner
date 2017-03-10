@@ -168,10 +168,7 @@
     <Media Include="MachinimaSound.com_-_The_Arcade.mp3" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bonus.png" />
-    <Image Include="obstacle.png" />
-    <Image Include="obstacle_back.png" />
-    <Image Include="runner.png" />
+    <Image Include="textures.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

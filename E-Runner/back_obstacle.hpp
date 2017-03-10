@@ -9,7 +9,6 @@ class back_obstacle
 public:
 	back_obstacle(sf::Texture *txtr)
 	{
-		//obstShape.setFillColor(sf::Color::White);
 		obstShape.setSize(sf::Vector2f(100, 800));
 		obstShape.setPosition(sf::Vector2f(1000, 1000));
 		obstShape.setTexture(txtr);

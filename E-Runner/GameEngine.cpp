@@ -140,6 +140,7 @@ void GameEngine::Start()
 
 GameEngine::GameEngine()
 {
+	media_container.loadAllMedia();
 	for (size_t i = 0; i < 2; i++)
 	{
 		walls.push_back(back_obstacle(&media_container.backobstTexture));
@@ -147,7 +148,6 @@ GameEngine::GameEngine()
 	rand_engine.seed(static_cast<unsigned int>(time(NULL)));
 	points = 0;
 	playerIsAlive = true;
-	media_container.loadAllMedia();
 	player.create(&media_container.runnerTexture, sf::Vector2f());
 }
 
@@ -335,7 +335,7 @@ void GameEngine::addSomePoint()
 
 void GameEngine::objectGenerator()
 {
-	std::uniform_int_distribution <int> distribution(-100,500);
+	std::uniform_int_distribution <int> distribution(-100,470);
 
 	sf::Vector2f pos = player.getPosition();
 	pos.y -= 1000;

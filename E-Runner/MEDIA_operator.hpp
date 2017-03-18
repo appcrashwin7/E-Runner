@@ -24,6 +24,7 @@ struct MEDIA_operator
 		textures.loadFromFile("textures.png");
 
 		obstTexture.loadFromImage(textures, sf::IntRect(0, 0, 200, 200));
+		obstTexture.generateMipmap();
 		obstTexture.setSmooth(true);
 
 		moneysTexture.loadFromImage(textures, sf::IntRect(0, 210, 200, 200));
@@ -32,7 +33,8 @@ struct MEDIA_operator
 		runnerTexture.loadFromImage(textures, sf::IntRect(0, 410, 200, 200));
 		runnerTexture.setSmooth(true);
 
-		backobstTexture.loadFromImage(textures, sf::IntRect(0, 610, 100, 100));
+		backobstTexture.loadFromImage(textures, sf::IntRect(210, 0, 100, 800));
+		backobstTexture.generateMipmap();
 		backobstTexture.setSmooth(true);
 	}
 };
